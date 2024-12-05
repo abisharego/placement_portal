@@ -3,17 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Post Job</title>
+    <title>Edit Profile</title>
     {% load static %}
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
 </head>
 <body>
-    <h1>Post a Job</h1>
+    <h1>Edit Profile</h1>
     <form method="POST">
         {% csrf_token %}
-        <input type="text" name="title" placeholder="Job Title" required>
-        <textarea name="description" placeholder="Job Description" required></textarea>
-        <button type="submit">Post Job</button>
+        <input type="text" name="name" value="{{ student.name }}" required>
+        <input type="text" name="university_number" value="{{ student.university_number }}" required>
+        <button type="submit">Update</button>
     </form>
 </body>
 </html>

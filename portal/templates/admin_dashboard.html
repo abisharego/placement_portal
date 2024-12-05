@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <h1>Admin Dashboard</h1>
+    
+    <h2>Students</h2>
+    <ul>
+        {% for student in students %}
+            <li>{{ student.name }} - {{ student.university_number }}</li>
+        {% endfor %}
+    </ul>
+
+    <h2>Jobs</h2>
+    <ul>
+        {% for job in jobs %}
+            <li>{{ job.title }} - Posted by {{ job.recruiter.email }}
+                <a href="{% url 'export_applications' job.id %}">Export Applications</a>
+            </li>
+        {% endfor %}
+    </ul>
+
+    <h2>Applications</h2>
+    <ul>
+        {% for application in applications %}
+            <li>{{ application.student.name }} applied for {{ application.job.title }}</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

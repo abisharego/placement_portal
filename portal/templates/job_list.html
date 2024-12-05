@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job List</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}"> <!-- Optional CSS -->
+</head>
+<body>
+    <h1>Job Listings</h1>
+    <div>
+        {% for job in jobs %}
+            <div>
+                <h3>{{ job.title }}</h3>
+                <p>{{ job.description|truncatewords:30 }}</p> <!-- Optional field -->
+            </div>
+            <hr>
+        {% empty %}
+            <p>No jobs available.</p>
+        {% endfor %}
+    </div>
+
+    <!-- Pagination Section -->
+    <div>
+        <span>Page {{ jobs.number }} of {{ jobs.paginator.num_pages }}</span>
+        <div>
+            {% if jobs.has_previous %}
+                <a href="?page={{ jobs.previous_page_number }}">Previous</a>
+            {% endif %}
+            <span> | </span>
+            {% if jobs.has_next %}
+                <a href="?page={{ jobs.next_page_number }}">Next</a>
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>

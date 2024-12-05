@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Dashboard</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <h1>Welcome, {{ student.name }}</h1>
+    
+    <h2>Available Jobs</h2>
+    <ul>
+        {% for job in jobs %}
+            <li>
+                <strong>{{ job.title }}</strong>: {{ job.description }}
+                <form method="POST" action="{% url 'apply_for_job' job.id %}">
+                    {% csrf_token %}
+                    <button type="submit">Apply</button>
+                </form>
+            </li>
+        {% endfor %}
+    </ul>
+
+    <h2>Your Applications</h2>
+    <ul>
+        {% for application in applications %}
+            <li>You applied for {{ application.job.title }} on {{ application.applied_date }}</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

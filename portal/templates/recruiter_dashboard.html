@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recruiter Dashboard</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <h1>Welcome, Recruiter</h1>
+    
+    <h2>Your Jobs</h2>
+    <ul>
+        {% for job in jobs %}
+            <li>{{ job.title }} - {{ job.description }} 
+                <a href="{% url 'export_applications' job.id %}">View Applicants</a>
+            </li>
+        {% endfor %}
+    </ul>
+
+    <h2>Post a New Job</h2>
+    <form method="POST" action="{% url 'post_job_view' %}">
+        {% csrf_token %}
+        <input type="text" name="title" placeholder="Job Title" required>
+        <textarea name="description" placeholder="Job Description" required></textarea>
+        <button type="submit">Post Job</button>
+    </form>
+</body>
+</html>
