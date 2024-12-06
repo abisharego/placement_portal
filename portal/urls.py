@@ -1,5 +1,5 @@
 from django.urls import path, include
-from .views import admin_dashboard, export_applications_to_excel, student_dashboard, apply_for_job, recruiter_dashboard, login_view, post_job, register_view, recruiter_error, my_view, register_student
+from .views import admin_dashboard, export_applications_to_excel, student_dashboard, apply_for_job, recruiter_dashboard, login_view, post_job, register_view, recruiter_error, my_view, register_student, login_student, login_admin, login_recruiter
 from rest_framework.routers import DefaultRouter
 from .views import JobViewSet
 from django.views.generic import RedirectView
@@ -21,4 +21,14 @@ urlpatterns = [
     path('jobs/', my_view, name='my_view'),
     path('register/student/', register_student, name='register_student'),
     path('', RedirectView.as_view(url='/admin/', permanent=False)),
+
+
+
+
+
+
+
+    path('login/recruiter/', login_recruiter, name='login_recruiter'),
+    path('login/admin/', login_admin, name='login_admin'),
+    path('login/student/', login_student, name='login_student'),
 ]

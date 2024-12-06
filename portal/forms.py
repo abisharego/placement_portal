@@ -1,6 +1,11 @@
 from django import forms
 from .models import Job, Student
 from django.db import models
+from django.contrib.auth.forms import AuthenticationForm
+
+class CustomLoginForm(AuthenticationForm):
+    username = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control'}))
+    password = forms.CharField(widget=forms.PasswordInput(attrs={'class': 'form-control'}))
 
 class JobSearchForm(forms.Form):
     query = forms.CharField(required=False)

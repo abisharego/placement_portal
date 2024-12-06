@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block title %}Recruiter Login{% endblock %}
+
+{% block content %}
+<h2>Recruiter Login</h2>
+<form method="post" action="{% url 'login_recruiter' %}">
+    {% csrf_token %}
+    <div>
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" required>
+    </div>
+    <div>
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required>
+    </div>
+    <button type="submit">Login</button>
+</form>
+{% endblock %}

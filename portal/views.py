@@ -52,6 +52,70 @@ def login_view(request):
     return render(request, 'login.html')
 
 
+
+
+from django.shortcuts import render, redirect
+from django.contrib.auth import authenticate, login
+from django.contrib import messages
+
+def login_recruiter(request):
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            # Check if the user is a recruiter (you can use a user group or a custom field)
+            if user.is_staff:  # Assuming recruiters are staff users
+                login(request, user)
+                return redirect('recruiter_dashboard')  # Redirect to a recruiter dashboard
+            else:
+                messages.error(request, "You do not have permission to access this page.")
+        else:
+            messages.error(request, "Invalid username or password.")
+    
+    return render(request, 'login_recruiter.html')
+
+def login_admin(request):
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            # Check if the user is an admin
+            if user.is_superuser:  # Assuming admins are superusers
+                login(request, user)
+                return redirect('admin_dashboard')  # Redirect to an admin dashboard
+            else:
+                messages.error(request, "You do not have permission to access this page.")
+        else:
+            messages.error(request, "Invalid username or password.")
+    
+    return render(request, 'login_admin.html')
+
+def login_student(request):
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            # Check if the user is a student (you can use a user group or a custom field)
+            if not user.is_staff and not user.is_superuser:  # Assuming students are neither staff nor superusers
+                login(request, user)
+                return redirect('student_dashboard')  # Redirect to a student dashboard
+            else:
+                messages.error(request, "You do not have permission to access this page.")
+        else:
+            messages.error(request, "Invalid username or password.")
+    
+    return render(request, 'login_student.html')
+
+
+
+
+
 def register_view(request):
     if request.method == "POST":
         username = request.POST("username")
