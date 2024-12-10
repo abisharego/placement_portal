@@ -21,7 +21,7 @@ urlpatterns = [
     path('jobs/', my_view, name='my_view'),
     path('register/student/', register_student, name='register_student'),
     path('', RedirectView.as_view(url='/admin/', permanent=False)),
-
+    path('home/', login_view, name='home'),
 
 
 

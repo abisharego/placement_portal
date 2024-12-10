@@ -8,5 +8,6 @@ class StudentAdmin(admin.ModelAdmin):
 
 @admin.register(Job)
 class JobAdmin(admin.ModelAdmin):
-    list_display = ('title', 'company')
-    list_filter = ('company',)
+    list_display = ('title', 'recruiter', 'posted_date', 'salary')
+    search_fields = ('title', 'company')
+    list_filter = ('job_type',)

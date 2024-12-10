@@ -373,3 +373,10 @@ def my_view(request):
         # Return a generic error response (you can customize this)
         return render(request, 'error_template.html', {'error': 'Something went wrong!'})
 
+
+from django.contrib.auth.views import LoginView
+
+class CustomLoginView(LoginView):
+    template_name = 'login.html'
+    redirect_authenticated_user = True  # Redirect if already logged in
+    next_page = 'home'  # Or use a URL pattern name

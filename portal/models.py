@@ -50,8 +50,8 @@ class Feedback(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
 
-admin.site.register(Job, JobAdmin)
+
 admin.site.register(Application)
-admin.site.register(Student)
+
 admin.site.register(Recruiter)
 admin.site.register(Feedback)
