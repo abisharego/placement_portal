@@ -26,6 +26,7 @@ form {
 }
 
 input[type="text"],
+input[type="email"],
 input[type="password"],
 textarea {
     width: 100%;

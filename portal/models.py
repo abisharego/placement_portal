@@ -29,7 +29,7 @@ class Job(models.Model):
     posted_date = models.DateTimeField(auto_now_add=True)
     salary = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
     job_type = models.CharField(max_length=50, default='Full-time')
-    recruiter_company_name = models.CharField(max_length=100, default='Unknown Company')
+    company = models.CharField(max_length=100, default='Unknown Company')
 
 class Application(models.Model):
     student = models.ForeignKey(Student, on_delete=models.CASCADE)
@@ -37,10 +37,6 @@ class Application(models.Model):
     applied_date = models.DateTimeField(auto_now_add=True)
     status = models.CharField(max_length=20, default='Pending')
 
-class JobAdmin(admin.ModelAdmin):
-    list_display = ('title', 'recruiter', 'posted_date', 'salary')
-    search_fields = ('title', 'recruiter_company_name')
-    list_filter = ('job_type',)
 
 
 class Feedback(models.Model):

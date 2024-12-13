@@ -16,15 +16,18 @@ from django.core.paginator import Paginator
 from django.views.decorators.cache import cache_page
 
 def login_view(request):
+    print("login: ",request.method)
     if request.method == "POST":
         user_type = request.POST.get('user_type')
         email = request.POST.get('email')
         password = request.POST.get('password')
         user = authenticate(request, username=email, password=password)
+        print("user type: ",user_type)
         if user_type == 'Student':
             try:
                 student = Student.objects.get(university_number=email)
                 user = authenticate(request, username=student.university_number, password=password)
+                print("user: ",user )
                 if user is not None:
                     login(request, user)
                     return redirect('student_dashboard')
@@ -49,9 +52,7 @@ def login_view(request):
         else:
             return render(request, 'login.html', {'error': 'Invalid user type'})
 
-    return render(request, 'login.html')
-
-
+    return render(request, 'login.html') 
 
 
 from django.shortcuts import render, redirect
@@ -103,17 +104,14 @@ def login_student(request):
         if user is not None:
             # Check if the user is a student (you can use a user group or a custom field)
             if not user.is_staff and not user.is_superuser:  # Assuming students are neither staff nor superusers
-                login(request, user)
-                return redirect('student_dashboard')  # Redirect to a student dashboard
+                # login(request, user)
+                return redirect('student_dashboard.html')  # Redirect to a student dashboard
             else:
                 messages.error(request, "You do not have permission to access this page.")
         else:
             messages.error(request, "Invalid username or password.")
     
-    return render(request, 'login_student.html')
-
-
-
+    return render(request, 'login.html')
 
 
 def register_view(request):
@@ -139,8 +137,8 @@ def post_job(request):
         send_mail(
             'New Job Posted',
             f'A new job has been posted: {title}',
-            'from@example.com',
-            ['admin@example.com'],
+            'pesitm.placementportal@example.com',
+            ['abisharego18@example.com'],
             fail_silently=False,
         )
         return redirect('recruiter_dashboard.html')
