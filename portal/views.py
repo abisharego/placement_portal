@@ -94,18 +94,27 @@ def login_admin(request):
             messages.error(request, "Invalid username or password.")
     
     return render(request, 'login_admin.html')
+from django.contrib.auth.hashers import check_password
+from django.contrib.auth import get_user_model
 
 def login_student(request):
+    print("All users in the system:")
+    print(get_user_model().objects.all())
     if request.method == 'POST':
         username = request.POST.get('username')
         password = request.POST.get('password')
-        
+        print("apoorva")
+        user = User.objects.filter(username="4PM22CS016").first()
+        if user and check_password(password, "Alur@123"):
+            print("Authentication successful!")
+        else:
+            print("Authentication failed!")
         user = authenticate(request, username=username, password=password)
         if user is not None:
             # Check if the user is a student (you can use a user group or a custom field)
             if not user.is_staff and not user.is_superuser:  # Assuming students are neither staff nor superusers
-                # login(request, user)
-                return redirect('student_dashboard.html')  # Redirect to a student dashboard
+                login(request, user)
+                return redirect('student_dashboard')  # Redirect to a student dashboard
             else:
                 messages.error(request, "You do not have permission to access this page.")
         else:
@@ -231,6 +240,7 @@ def job_search(request):
 @login_required
 @permission_required('portal.can_view_student_dashboard')
 def student_dashboard(request):
+    print("request username",request.user.username)
     student = Student.objects.get(university_number=request.user.username)
     jobs = Job.objects.all()  # Fetch all jobs posted by recruiters
     applications = Application.objects.filter(student=student)  # Fetch applications made by the student

@@ -15,7 +15,7 @@ urlpatterns = [
     path('student/apply/<int:job_id>/', apply_for_job, name='apply_for_job'),
     path('recruiter/dashboard/', recruiter_dashboard, name='recruiter_dashboard'),
     path('recruiter/post_job/', post_job, name='post_job'),
-    path('register/student/', register_student, name='register'),
+    path('register/', register_student, name='register'),
     path('api/', include(router.urls)), 
     path('error/', recruiter_error, name='recruiter_error'),
     path('jobs/', my_view, name='my_view'),
